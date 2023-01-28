@@ -32,7 +32,7 @@ public class VoteService {
         }
 
         ResponseEntity<AgendaResponse> agendaResponse = agendaClient.checkIfAgendaExists(voteRequest.getAgendaId());
-        if (Objects.requireNonNull(agendaResponse.getBody()).endDate().isAfter(LocalDateTime.now())) {
+        if (Objects.requireNonNull(agendaResponse.getBody()).endDate().isBefore(LocalDateTime.now())) {
             throw new VotingTimeExpiredException();
         }
 

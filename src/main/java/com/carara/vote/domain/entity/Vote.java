@@ -1,5 +1,7 @@
 package com.carara.vote.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -18,6 +20,7 @@ public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @JsonIgnore
     private Long id;
 
     @Positive
@@ -32,6 +35,7 @@ public class Vote {
     @Column(name = "voteOption", nullable = false)
     private VoteOption voteOption;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull
     @Column(name = "voteTime", nullable = false)
     private LocalDateTime voteTime;
