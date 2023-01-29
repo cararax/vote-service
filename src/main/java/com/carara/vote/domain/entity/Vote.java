@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
@@ -16,6 +19,8 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Table(name = "vote", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id", "associateId", "agendaId"})})
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
