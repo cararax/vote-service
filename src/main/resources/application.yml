@@ -5,6 +5,15 @@ spring:
     author:
       name: Pedro Carara
       email: cararax@gmail.com
+  h2:
+    console.enabled: true
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 
 server:
   port: 8082
@@ -14,6 +23,7 @@ rabbitmq:
   port: '15672'
   username: guest
   password: guest
+
   exchange: vote.exchange
   queue: vote.queue
   routingkey: vote.routingkey

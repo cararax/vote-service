@@ -12,13 +12,13 @@ import lombok.ToString;
 import lombok.extern.jackson.Jacksonized;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Jacksonized
 //@Table(name = "vote", uniqueConstraints = {
