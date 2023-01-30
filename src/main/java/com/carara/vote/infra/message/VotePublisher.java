@@ -1,36 +1,29 @@
 package com.carara.vote.infra.message;
 
+import com.carara.vote.domain.entity.Vote;
+import com.carara.vote.service.VoteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Slf4j
 @Component
 public class VotePublisher {
 
-    //CLIENT
-
     @Autowired
-    private RabbitTemplate template;
+    private VoteService voteService;
 
-    @Autowired
-    private DirectExchange exchange;
+    //SERVER
+    @RabbitListener(queues = "${rabbitmq.queue}")
+    public String publish(Long agendaId) throws JsonProcessingException {
+        log.info(" [x] Received request for agenda " + agendaId);
+        List<Vote> votesByAgendaId = voteService.getVotesByAgendaId(agendaId);
 
-    @Value("${rabbitmq.routingkey}")
-    private String routingKey;
-
-
-    int start = 0;
-
-    public void send() {
-//        System.out.println(" [x] Requesting fib(" + start + ")");
-        log.info(" [x] Requesting fib(" + start + ")");
-        Integer response = (Integer) template.convertSendAndReceive(exchange.getName(), routingKey, start++);
-//        System.out.println(" [.] Got '" + response + "'");
-        log.info(" [.] Got '" + response + "'");
+        log.info(" [.] Returned " + votesByAgendaId);
+        return votesByAgendaId.toString();
     }
-
 }
