@@ -26,9 +26,4 @@ public class VoteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vote);
     }
 
-    @GetMapping
-    public void fala() {
-        votePublisher.send();
-    }
-
 }

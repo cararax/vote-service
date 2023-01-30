@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,15 +27,15 @@ public class VoteService {
     AgendaClient agendaClient;
 
     public Vote createVote(VoteRequest voteRequest) throws VotingTimeExpiredException, AssociateAlreadyVotedException {
-        boolean existsByAssociateId = voteRepository.existsByAssociateId(voteRequest.getAssociateId());
-        if (existsByAssociateId) {
-            throw new AssociateAlreadyVotedException();
-        }
+//        boolean existsByAssociateId = voteRepository.existsByAssociateId(voteRequest.getAssociateId());
+//        if (existsByAssociateId) {
+//            throw new AssociateAlreadyVotedException();
+//        }
 
         ResponseEntity<AgendaResponse> agendaResponse = agendaClient.checkIfAgendaExists(voteRequest.getAgendaId());
-        if (Objects.requireNonNull(agendaResponse.getBody()).endDate().isBefore(LocalDateTime.now())) {
-            throw new VotingTimeExpiredException();
-        }
+//        if (Objects.requireNonNull(agendaResponse.getBody()).endDate().isBefore(LocalDateTime.now())) {
+//            throw new VotingTimeExpiredException();
+//        }
 
         associateClient.checkIfAssociateExists(voteRequest.getAssociateId());
 
@@ -45,5 +46,9 @@ public class VoteService {
         //todo: send request for email confirmation
 
         return voteRepository.save(voteEntity);
+    }
+
+    public List<Vote> getVotesByAgendaId(Long agendaId) {
+        return voteRepository.findByAgendaId(agendaId);
     }
 }
