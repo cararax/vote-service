@@ -5,15 +5,19 @@ spring:
     author:
       name: Pedro Carara
       email: cararax@gmail.com
-  h2:
-    console.enabled: true
+
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
+    username: user
     password: password
-    driverClassName: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
 
 server:
   port: 8082
