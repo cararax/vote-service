@@ -28,9 +28,10 @@ rabbitmq:
   username: guest
   password: guest
 
-  exchange: vote.exchange
-  queue: vote.queue
-  routingkey: vote.routingkey
+  vote:
+    exchange: vote.exchange
+    queue: vote.queue
+    routingkey: vote.routingkey
 
 feign:
   config:
