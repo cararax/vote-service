@@ -21,8 +21,8 @@ import java.util.Objects;
 @Setter
 @RequiredArgsConstructor
 @Jacksonized
-//@Table(name = "vote", uniqueConstraints = {
-//        @UniqueConstraint(columnNames = {"id", "associateId", "agendaId"})})
+@Table(name = "vote", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id", "associateId", "agendaId"})})
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +46,13 @@ public class Vote {
     @NotNull
     @Column(name = "voteTime", nullable = false)
     private LocalDateTime voteTime;
+
+    public Vote(Long associateId, Long agendaId, VoteOption voteOption, LocalDateTime voteTime) {
+        this.associateId = associateId;
+        this.agendaId = agendaId;
+        this.voteOption = voteOption;
+        this.voteTime = voteTime;
+    }
 
     @Override
     public boolean equals(Object o) {
