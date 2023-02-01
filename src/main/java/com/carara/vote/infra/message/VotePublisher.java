@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Slf4j
+@Slf4j(topic = "VotePublisher")
 @Component
 public class VotePublisher {
 
@@ -27,15 +27,16 @@ public class VotePublisher {
     //SERVER
     @RabbitListener(queues = "${rabbitmq.vote.queue}")
     public String publish(Long agendaId) throws JsonProcessingException {
-        log.info(" [4] Received request from result to get votes for agenda" + agendaId);
-
+        log.info("Loading votes for agenda: " + agendaId);
         List<Vote> votesByAgendaId = voteService.getVotesByAgendaId(agendaId);
+
         if (votesByAgendaId.isEmpty()) {
+            log.error("Agenda "+agendaId+" without votes");
             throw new AmqpIllegalStateException("Agenda without votes, try again later.");
         }
         String json = newObjectMapper.writeValueAsString(votesByAgendaId);
 
-        log.info(" [5] Returned votes from agenda "+ agendaId+ " to result, data: " + json);
+        log.info("Returned votes for agenda: "+ agendaId+ " to result service, data: " + json);
         return json;
     }
 }

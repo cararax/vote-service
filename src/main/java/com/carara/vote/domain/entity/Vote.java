@@ -8,11 +8,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.jackson.Jacksonized;
 import org.hibernate.Hibernate;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

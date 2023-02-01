@@ -83,6 +83,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         errorResponse.put("status", List.of(status.toString()));
         return errorResponse;
     }
-
-
 }

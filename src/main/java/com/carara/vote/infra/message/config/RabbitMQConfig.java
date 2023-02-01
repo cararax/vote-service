@@ -18,7 +18,6 @@ import org.springframework.util.ErrorHandler;
 @Configuration
 public class RabbitMQConfig {
 
-    //SERVER
     @Value("${rabbitmq.vote.queue}")
     private String queue;
     @Value("${rabbitmq.vote.exchange}")

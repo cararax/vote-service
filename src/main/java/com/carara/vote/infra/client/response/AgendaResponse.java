@@ -6,5 +6,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record AgendaResponse(String description,
-                             @JsonFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endDate) implements Serializable {
+                             @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+                             LocalDateTime endDate) implements Serializable {
 }
